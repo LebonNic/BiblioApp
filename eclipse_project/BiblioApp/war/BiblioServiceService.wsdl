@@ -12,6 +12,12 @@
   <message name="addAuteurResponse">
     <part name="parameters" element="tns:addAuteurResponse"/>
   </message>
+  <message name="getAuteur">
+    <part name="parameters" element="tns:getAuteur"/>
+  </message>
+  <message name="getAuteurResponse">
+    <part name="parameters" element="tns:getAuteurResponse"/>
+  </message>
   <message name="getAllAuteurs">
     <part name="parameters" element="tns:getAllAuteurs"/>
   </message>
@@ -42,6 +48,12 @@
   <message name="addLivreResponse">
     <part name="parameters" element="tns:addLivreResponse"/>
   </message>
+  <message name="getLivre">
+    <part name="parameters" element="tns:getLivre"/>
+  </message>
+  <message name="getLivreResponse">
+    <part name="parameters" element="tns:getLivreResponse"/>
+  </message>
   <message name="getAllLivres">
     <part name="parameters" element="tns:getAllLivres"/>
   </message>
@@ -71,6 +83,10 @@
       <input wsam:Action="http://webservice.isima.fr/BiblioService/addAuteurRequest" message="tns:addAuteur"/>
       <output wsam:Action="http://webservice.isima.fr/BiblioService/addAuteurResponse" message="tns:addAuteurResponse"/>
     </operation>
+    <operation name="getAuteur">
+      <input wsam:Action="http://webservice.isima.fr/BiblioService/getAuteurRequest" message="tns:getAuteur"/>
+      <output wsam:Action="http://webservice.isima.fr/BiblioService/getAuteurResponse" message="tns:getAuteurResponse"/>
+    </operation>
     <operation name="getAllAuteurs">
       <input wsam:Action="http://webservice.isima.fr/BiblioService/getAllAuteursRequest" message="tns:getAllAuteurs"/>
       <output wsam:Action="http://webservice.isima.fr/BiblioService/getAllAuteursResponse" message="tns:getAllAuteursResponse"/>
@@ -90,6 +106,10 @@
     <operation name="addLivre">
       <input wsam:Action="http://webservice.isima.fr/BiblioService/addLivreRequest" message="tns:addLivre"/>
       <output wsam:Action="http://webservice.isima.fr/BiblioService/addLivreResponse" message="tns:addLivreResponse"/>
+    </operation>
+    <operation name="getLivre">
+      <input wsam:Action="http://webservice.isima.fr/BiblioService/getLivreRequest" message="tns:getLivre"/>
+      <output wsam:Action="http://webservice.isima.fr/BiblioService/getLivreResponse" message="tns:getLivreResponse"/>
     </operation>
     <operation name="getAllLivres">
       <input wsam:Action="http://webservice.isima.fr/BiblioService/getAllLivresRequest" message="tns:getAllLivres"/>
@@ -119,6 +139,15 @@
         <soap:body use="literal"/>
       </output>
     </operation>
+    <operation name="getAuteur">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
     <operation name="getAllAuteurs">
       <soap:operation soapAction=""/>
       <input>
@@ -156,6 +185,15 @@
       </output>
     </operation>
     <operation name="addLivre">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="getLivre">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>

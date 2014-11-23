@@ -16,6 +16,10 @@ import fr.isima.webservice.jaxws.GetAllAuteurs;
 import fr.isima.webservice.jaxws.GetAllAuteursResponse;
 import fr.isima.webservice.jaxws.GetAllLivres;
 import fr.isima.webservice.jaxws.GetAllLivresResponse;
+import fr.isima.webservice.jaxws.GetAuteur;
+import fr.isima.webservice.jaxws.GetAuteurResponse;
+import fr.isima.webservice.jaxws.GetLivre;
+import fr.isima.webservice.jaxws.GetLivreResponse;
 import fr.isima.webservice.jaxws.SearchAuteurs;
 import fr.isima.webservice.jaxws.SearchAuteursResponse;
 import fr.isima.webservice.jaxws.SearchLivres;
@@ -28,12 +32,21 @@ import fr.isima.webservice.jaxws.UpdateLivreResponse;
 public class SoapAdapter {
 	private final static BiblioService bs = new BiblioService();
 	
+	// Méthodes pour le traitement des auteurs
 	public AddAuteurResponse adapterAddAuteur(AddAuteur request){
 		String nom = request.getArg0();
 		String prenom = request.getArg1();
 		String adresse = request.getArg2();
 		bs.addAuteur(nom, prenom, adresse);
 		return new AddAuteurResponse();
+	}
+	
+	public GetAuteurResponse adapterGetAuteur(GetAuteur request){
+		Long numero_a = request.getArg0();
+		Auteur auteur = bs.getAuteur(numero_a);
+		GetAuteurResponse resp = new GetAuteurResponse();
+		resp.setReturn(auteur);
+		return resp;
 	}
 	
 	public GetAllAuteursResponse adapterGetAllAuteurs(GetAllAuteurs request){
@@ -66,6 +79,7 @@ public class SoapAdapter {
 		return new DeleteAuteurResponse();
 	}
 	
+	// Méthodes pour le traitement des livres
 	public AddLivreResponse adapterAddLivre(AddLivre request){
 		String titre = request.getArg0();
 		double prix = request.getArg1();
@@ -73,6 +87,14 @@ public class SoapAdapter {
 		Long numero_a = request.getArg3();
 		bs.addLivre(titre, prix, resume, numero_a);
 		return new AddLivreResponse();
+	}
+	
+	public GetLivreResponse adapterGetLivre(GetLivre request){
+		Long numero_l = request.getArg0();
+		Livre livre = bs.getLivre(numero_l);
+		GetLivreResponse resp = new GetLivreResponse();
+		resp.setReturn(livre);
+		return resp;
 	}
 	
 	public GetAllLivresResponse adapterGetAllLivres(GetAllLivres request){

@@ -25,6 +25,14 @@
 
   <xs:element name="getAllLivresResponse" type="tns:getAllLivresResponse"/>
 
+  <xs:element name="getAuteur" type="tns:getAuteur"/>
+
+  <xs:element name="getAuteurResponse" type="tns:getAuteurResponse"/>
+
+  <xs:element name="getLivre" type="tns:getLivre"/>
+
+  <xs:element name="getLivreResponse" type="tns:getLivreResponse"/>
+
   <xs:element name="searchAuteurs" type="tns:searchAuteurs"/>
 
   <xs:element name="searchAuteursResponse" type="tns:searchAuteursResponse"/>
@@ -173,6 +181,30 @@
   <xs:complexType name="searchAuteursResponse">
     <xs:sequence>
       <xs:element name="return" type="tns:auteur" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getLivre">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getLivreResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:livre" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getAuteur">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getAuteurResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:auteur" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

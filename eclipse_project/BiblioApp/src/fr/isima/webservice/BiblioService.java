@@ -22,6 +22,13 @@ public class BiblioService {
 	}
 	
 	@WebMethod
+	public Auteur getAuteur(Long numero_a){
+		Key<Auteur> cleAuteur = Key.create(Auteur.class, numero_a);
+		Auteur auteur = ofy().load().key(cleAuteur).now();
+		return auteur;
+	}
+	
+	@WebMethod
 	public List<Auteur> getAllAuteurs(){
 		List<Auteur> auteurs = ofy().load().type(Auteur.class).list();
 		return auteurs;
@@ -67,6 +74,13 @@ public class BiblioService {
 	}
 	
 	@WebMethod
+	public Livre getLivre(Long numero_l){
+		Key<Livre> cleLivre = Key.create(Livre.class, numero_l);
+		Livre livre = ofy().load().key(cleLivre).now();
+		return livre;
+	}
+	
+	@WebMethod
 	public List<Livre> getAllLivres(){
 		List<Livre> livres = ofy().load().type(Livre.class).list();
 		return livres;
@@ -92,7 +106,7 @@ public class BiblioService {
 	@WebMethod
 	public void deleteLivre(Long numero_l){
 		Key<Livre> cleLivre = Key.create(Livre.class, numero_l);
-		ofy().delete().entity(cleLivre).now();
+		ofy().delete().key(cleLivre).now();
 	}
 	
 }

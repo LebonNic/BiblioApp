@@ -19,6 +19,8 @@ import fr.isima.webservice.jaxws.DeleteAuteur;
 import fr.isima.webservice.jaxws.DeleteLivre;
 import fr.isima.webservice.jaxws.GetAllAuteurs;
 import fr.isima.webservice.jaxws.GetAllLivres;
+import fr.isima.webservice.jaxws.GetAuteur;
+import fr.isima.webservice.jaxws.GetLivre;
 import fr.isima.webservice.jaxws.SearchAuteurs;
 import fr.isima.webservice.jaxws.SearchLivres;
 import fr.isima.webservice.jaxws.UpdateAuteur;
@@ -28,12 +30,14 @@ public class SoapHandler {
 	private static final String NAMESPACE_URI = "http://webservice.isima.fr/";
 	
 	private static final QName addAuteur_QNAME = new QName(NAMESPACE_URI, "addAuteur");
+	private static final QName getAuteur_QNAME = new QName(NAMESPACE_URI, "getAuteur");
 	private static final QName getAllAuteurs_QNAME = new QName(NAMESPACE_URI, "getAllAuteurs");
 	private static final QName searchAuteurs_QNAME = new QName(NAMESPACE_URI, "searchAuteurs");
 	private static final QName updateAuteur_QNAME = new QName(NAMESPACE_URI, "updateAuteur");
 	private static final QName deleteAuteur_QNAME = new QName(NAMESPACE_URI, "deleteAuteur");
 	
 	private static final QName addLivre_QNAME = new QName(NAMESPACE_URI, "addLivre");
+	private static final QName getLivre_QNAME = new QName(NAMESPACE_URI, "getLivre");
 	private static final QName getAllLivres_QNAME = new QName(NAMESPACE_URI, "getAllLivres");
 	private static final QName searchLivres_QNAME = new QName(NAMESPACE_URI, "searchLivres");
 	private static final QName updateLivre_QNAME = new QName(NAMESPACE_URI, "updateLivre");
@@ -62,11 +66,15 @@ public class SoapHandler {
 				QName qname = soapElement.getElementQName();
 				
 				System.out.println(qname);
-				System.out.println(getAllLivres_QNAME);
+				//System.out.println(getAllLivres_QNAME);
 				
 				// Auteurs
 				if(SoapHandler.addAuteur_QNAME.equals(qname)){
 					response = appelerAddAuteur(soapElement);
+					break;
+				}
+				else if(SoapHandler.getAuteur_QNAME.equals(qname)){
+					response = appelerGetAuteur(soapElement);
 					break;
 				}
 				else if(SoapHandler.getAllAuteurs_QNAME.equals(qname)){
@@ -89,6 +97,10 @@ public class SoapHandler {
 				// Livres
 				else if(SoapHandler.addLivre_QNAME.equals(qname)){
 					response = appelerAddLivre(soapElement);
+					break;
+				}
+				else if(SoapHandler.getLivre_QNAME.equals(qname)){
+					response = appelerGetLivre(soapElement);
 					break;
 				}
 				else if(SoapHandler.getAllLivres_QNAME.equals(qname)){
@@ -130,6 +142,11 @@ public class SoapHandler {
 		return adapter.adapterAddAuteur(request);
 	}
 	
+	private Object appelerGetAuteur(SOAPElement soapElement){
+		GetAuteur request = JAXB.unmarshal(new DOMSource(soapElement), GetAuteur.class);
+		return adapter.adapterGetAuteur(request);
+	}
+	
 	private Object appelerGetAllAuteurs(SOAPElement soapElement){
 		GetAllAuteurs request = JAXB.unmarshal(new DOMSource(soapElement), GetAllAuteurs.class);
 		return adapter.adapterGetAllAuteurs(request);
@@ -154,6 +171,11 @@ public class SoapHandler {
 	private Object appelerAddLivre(SOAPElement soapElement){
 		AddLivre request = JAXB.unmarshal(new DOMSource(soapElement), AddLivre.class);
 		return adapter.adapterAddLivre(request);
+	}
+	
+	private Object appelerGetLivre(SOAPElement soapElement){
+		GetLivre request = JAXB.unmarshal(new DOMSource(soapElement), GetLivre.class);
+		return adapter.adapterGetLivre(request);
 	}
 	
 	private Object appelerGetAllLivres(SOAPElement soapElement){
