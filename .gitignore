@@ -41,3 +41,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Datastore files
+local_db.bin
+datastore-indexes-auto.xml
