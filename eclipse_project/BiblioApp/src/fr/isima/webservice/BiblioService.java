@@ -46,7 +46,17 @@ public class BiblioService {
 	@WebMethod
 	public void deleteAuteur(Long numero_a){
 		Key<Auteur> cleAuteur = Key.create(Auteur.class, numero_a);
-		ofy().delete().entity(cleAuteur).now();
+		Auteur auteur = ofy().load().key(cleAuteur).now();
+		Long idAuteur = auteur.getNumero_a();
+		
+		// Suppression des livres associés à l'auteur
+		List<Livre> livres = ofy().load().type(Livre.class).filter("_numero_a ==", idAuteur).list();
+		for(Livre l : livres){
+			ofy().delete().entity(l).now();
+		}
+		
+		// Suppression de l'auteur
+		ofy().delete().entity(auteur).now();
 	}
 	
 	// Méthodes pour les livres

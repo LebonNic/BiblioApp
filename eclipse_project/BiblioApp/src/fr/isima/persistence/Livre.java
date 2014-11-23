@@ -16,6 +16,8 @@ public class Livre {
 	private String _titre;
 	private double _prix;
 	private String _resume;
+	
+	@Index
 	private Long _numero_a;
 	
 	public Livre(){
