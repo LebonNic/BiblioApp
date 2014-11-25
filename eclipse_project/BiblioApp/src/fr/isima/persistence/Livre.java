@@ -9,7 +9,7 @@ import com.googlecode.objectify.annotation.Index;
 @Entity
 public class Livre {
 	@Id
-	@XmlElement
+	@XmlElement(name="numero_l")
 	private Long _numero_l;
 	
 	@Index

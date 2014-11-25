@@ -12,25 +12,25 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "getLivre", namespace = "http://webservice.isima.fr/")
 public class GetLivre {
 
-    @XmlElement(name = "arg0", namespace = "")
-    private Long arg0;
+    @XmlElement(name = "numero_l", namespace = "")
+    private Long numeroL;
 
     /**
      * 
      * @return
      *     returns Long
      */
-    public Long getArg0() {
-        return this.arg0;
+    public Long getNumeroL() {
+        return this.numeroL;
     }
 
     /**
      * 
-     * @param arg0
-     *     the value for the arg0 property
+     * @param numeroL
+     *     the value for the numeroL property
      */
-    public void setArg0(Long arg0) {
-        this.arg0 = arg0;
+    public void setNumeroL(Long numeroL) {
+        this.numeroL = numeroL;
     }
 
 }

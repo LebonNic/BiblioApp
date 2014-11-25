@@ -10,38 +10,38 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "addLivre", namespace = "http://webservice.isima.fr/")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "addLivre", namespace = "http://webservice.isima.fr/", propOrder = {
-    "arg0",
-    "arg1",
-    "arg2",
-    "arg3"
+    "titre",
+    "prix",
+    "resume",
+    "numeroA"
 })
 public class AddLivre {
 
-    @XmlElement(name = "arg0", namespace = "")
-    private String arg0;
-    @XmlElement(name = "arg1", namespace = "")
-    private double arg1;
-    @XmlElement(name = "arg2", namespace = "")
-    private String arg2;
-    @XmlElement(name = "arg3", namespace = "")
-    private Long arg3;
+    @XmlElement(name = "titre", namespace = "")
+    private String titre;
+    @XmlElement(name = "prix", namespace = "")
+    private double prix;
+    @XmlElement(name = "resume", namespace = "")
+    private String resume;
+    @XmlElement(name = "numero_a", namespace = "")
+    private Long numeroA;
 
     /**
      * 
      * @return
      *     returns String
      */
-    public String getArg0() {
-        return this.arg0;
+    public String getTitre() {
+        return this.titre;
     }
 
     /**
      * 
-     * @param arg0
-     *     the value for the arg0 property
+     * @param titre
+     *     the value for the titre property
      */
-    public void setArg0(String arg0) {
-        this.arg0 = arg0;
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
 
     /**
@@ -49,17 +49,17 @@ public class AddLivre {
      * @return
      *     returns double
      */
-    public double getArg1() {
-        return this.arg1;
+    public double getPrix() {
+        return this.prix;
     }
 
     /**
      * 
-     * @param arg1
-     *     the value for the arg1 property
+     * @param prix
+     *     the value for the prix property
      */
-    public void setArg1(double arg1) {
-        this.arg1 = arg1;
+    public void setPrix(double prix) {
+        this.prix = prix;
     }
 
     /**
@@ -67,17 +67,17 @@ public class AddLivre {
      * @return
      *     returns String
      */
-    public String getArg2() {
-        return this.arg2;
+    public String getResume() {
+        return this.resume;
     }
 
     /**
      * 
-     * @param arg2
-     *     the value for the arg2 property
+     * @param resume
+     *     the value for the resume property
      */
-    public void setArg2(String arg2) {
-        this.arg2 = arg2;
+    public void setResume(String resume) {
+        this.resume = resume;
     }
 
     /**
@@ -85,17 +85,17 @@ public class AddLivre {
      * @return
      *     returns Long
      */
-    public Long getArg3() {
-        return this.arg3;
+    public Long getNumeroA() {
+        return this.numeroA;
     }
 
     /**
      * 
-     * @param arg3
-     *     the value for the arg3 property
+     * @param numeroA
+     *     the value for the numeroA property
      */
-    public void setArg3(Long arg3) {
-        this.arg3 = arg3;
+    public void setNumeroA(Long numeroA) {
+        this.numeroA = numeroA;
     }
 
 }

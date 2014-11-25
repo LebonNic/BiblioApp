@@ -10,7 +10,7 @@ import com.googlecode.objectify.annotation.Index;
 public class Auteur {
 	
 	@Id
-	@XmlElement
+	@XmlElement(name="numero_a")
 	private Long _numero_a;
 
 	@Index

@@ -10,53 +10,35 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "addAuteur", namespace = "http://webservice.isima.fr/")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "addAuteur", namespace = "http://webservice.isima.fr/", propOrder = {
-    "arg0",
-    "arg1",
-    "arg2"
+    "nom",
+    "prenom",
+    "adresse"
 })
 public class AddAuteur {
 
-    @XmlElement(name = "arg0", namespace = "")
-    private String arg0;
-    @XmlElement(name = "arg1", namespace = "")
-    private String arg1;
-    @XmlElement(name = "arg2", namespace = "")
-    private String arg2;
+    @XmlElement(name = "nom", namespace = "")
+    private String nom;
+    @XmlElement(name = "prenom", namespace = "")
+    private String prenom;
+    @XmlElement(name = "adresse", namespace = "")
+    private String adresse;
 
     /**
      * 
      * @return
      *     returns String
      */
-    public String getArg0() {
-        return this.arg0;
+    public String getNom() {
+        return this.nom;
     }
 
     /**
      * 
-     * @param arg0
-     *     the value for the arg0 property
+     * @param nom
+     *     the value for the nom property
      */
-    public void setArg0(String arg0) {
-        this.arg0 = arg0;
-    }
-
-    /**
-     * 
-     * @return
-     *     returns String
-     */
-    public String getArg1() {
-        return this.arg1;
-    }
-
-    /**
-     * 
-     * @param arg1
-     *     the value for the arg1 property
-     */
-    public void setArg1(String arg1) {
-        this.arg1 = arg1;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     /**
@@ -64,17 +46,35 @@ public class AddAuteur {
      * @return
      *     returns String
      */
-    public String getArg2() {
-        return this.arg2;
+    public String getPrenom() {
+        return this.prenom;
     }
 
     /**
      * 
-     * @param arg2
-     *     the value for the arg2 property
+     * @param prenom
+     *     the value for the prenom property
      */
-    public void setArg2(String arg2) {
-        this.arg2 = arg2;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    /**
+     * 
+     * @return
+     *     returns String
+     */
+    public String getAdresse() {
+        return this.adresse;
+    }
+
+    /**
+     * 
+     * @param adresse
+     *     the value for the adresse property
+     */
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
 }

@@ -10,56 +10,38 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "updateAuteur", namespace = "http://webservice.isima.fr/")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "updateAuteur", namespace = "http://webservice.isima.fr/", propOrder = {
-    "arg0",
-    "arg1",
-    "arg2",
-    "arg3"
+    "numeroA",
+    "nom",
+    "prenom",
+    "adresse"
 })
 public class UpdateAuteur {
 
-    @XmlElement(name = "arg0", namespace = "")
-    private Long arg0;
-    @XmlElement(name = "arg1", namespace = "")
-    private String arg1;
-    @XmlElement(name = "arg2", namespace = "")
-    private String arg2;
-    @XmlElement(name = "arg3", namespace = "")
-    private String arg3;
+    @XmlElement(name = "numero_a", namespace = "")
+    private Long numeroA;
+    @XmlElement(name = "nom", namespace = "")
+    private String nom;
+    @XmlElement(name = "prenom", namespace = "")
+    private String prenom;
+    @XmlElement(name = "adresse", namespace = "")
+    private String adresse;
 
     /**
      * 
      * @return
      *     returns Long
      */
-    public Long getArg0() {
-        return this.arg0;
+    public Long getNumeroA() {
+        return this.numeroA;
     }
 
     /**
      * 
-     * @param arg0
-     *     the value for the arg0 property
+     * @param numeroA
+     *     the value for the numeroA property
      */
-    public void setArg0(Long arg0) {
-        this.arg0 = arg0;
-    }
-
-    /**
-     * 
-     * @return
-     *     returns String
-     */
-    public String getArg1() {
-        return this.arg1;
-    }
-
-    /**
-     * 
-     * @param arg1
-     *     the value for the arg1 property
-     */
-    public void setArg1(String arg1) {
-        this.arg1 = arg1;
+    public void setNumeroA(Long numeroA) {
+        this.numeroA = numeroA;
     }
 
     /**
@@ -67,17 +49,17 @@ public class UpdateAuteur {
      * @return
      *     returns String
      */
-    public String getArg2() {
-        return this.arg2;
+    public String getNom() {
+        return this.nom;
     }
 
     /**
      * 
-     * @param arg2
-     *     the value for the arg2 property
+     * @param nom
+     *     the value for the nom property
      */
-    public void setArg2(String arg2) {
-        this.arg2 = arg2;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     /**
@@ -85,17 +67,35 @@ public class UpdateAuteur {
      * @return
      *     returns String
      */
-    public String getArg3() {
-        return this.arg3;
+    public String getPrenom() {
+        return this.prenom;
     }
 
     /**
      * 
-     * @param arg3
-     *     the value for the arg3 property
+     * @param prenom
+     *     the value for the prenom property
      */
-    public void setArg3(String arg3) {
-        this.arg3 = arg3;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    /**
+     * 
+     * @return
+     *     returns String
+     */
+    public String getAdresse() {
+        return this.adresse;
+    }
+
+    /**
+     * 
+     * @param adresse
+     *     the value for the adresse property
+     */
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
 }
