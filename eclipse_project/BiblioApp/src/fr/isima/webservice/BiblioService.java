@@ -17,13 +17,14 @@ public class BiblioService {
 	
 	// Méthodes pour les auteurs
 	@WebMethod
-	public void addAuteur(
+	public Auteur addAuteur(
 			@WebParam(name="nom") String nom, 
 			@WebParam(name="prenom") String prenom, 
 			@WebParam(name="adresse")String adresse
 			){
 		Auteur auteur = new Auteur(nom, prenom, adresse);
 		ofy().save().entity(auteur).now();
+		return auteur;
 	}
 	
 	@WebMethod
@@ -78,7 +79,7 @@ public class BiblioService {
 	
 	// Méthodes pour les livres
 	@WebMethod
-	public void addLivre(
+	public Livre addLivre(
 			@WebParam(name="titre") String titre, 
 			@WebParam(name="prix") double prix, 
 			@WebParam(name="resume") String resume, 
@@ -86,6 +87,7 @@ public class BiblioService {
 			){
 		Livre livre = new Livre(titre, prix, resume, numero_a);
 		ofy().save().entity(livre).now();
+		return livre;
 	}
 	
 	@WebMethod

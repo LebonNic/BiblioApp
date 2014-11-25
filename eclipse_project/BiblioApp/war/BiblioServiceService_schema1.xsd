@@ -69,7 +69,19 @@
   </xs:complexType>
 
   <xs:complexType name="addLivreResponse">
-    <xs:sequence/>
+    <xs:sequence>
+      <xs:element name="return" type="tns:livre" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="livre">
+    <xs:sequence>
+      <xs:element name="numero_l" type="xs:long" minOccurs="0"/>
+      <xs:element name="numero_a" type="xs:long" minOccurs="0"/>
+      <xs:element name="prix" type="xs:double"/>
+      <xs:element name="resume" type="xs:string" minOccurs="0"/>
+      <xs:element name="titre" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="searchLivres">
@@ -84,16 +96,6 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="livre">
-    <xs:sequence>
-      <xs:element name="numero_l" type="xs:long" minOccurs="0"/>
-      <xs:element name="numero_a" type="xs:long" minOccurs="0"/>
-      <xs:element name="prix" type="xs:double"/>
-      <xs:element name="resume" type="xs:string" minOccurs="0"/>
-      <xs:element name="titre" type="xs:string" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
   <xs:complexType name="addAuteur">
     <xs:sequence>
       <xs:element name="nom" type="xs:string" minOccurs="0"/>
@@ -103,7 +105,18 @@
   </xs:complexType>
 
   <xs:complexType name="addAuteurResponse">
-    <xs:sequence/>
+    <xs:sequence>
+      <xs:element name="return" type="tns:auteur" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="auteur">
+    <xs:sequence>
+      <xs:element name="numero_a" type="xs:long" minOccurs="0"/>
+      <xs:element name="adresse" type="xs:string" minOccurs="0"/>
+      <xs:element name="nom" type="xs:string" minOccurs="0"/>
+      <xs:element name="prenom" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="updateLivre">
@@ -137,15 +150,6 @@
   <xs:complexType name="getAllAuteursResponse">
     <xs:sequence>
       <xs:element name="return" type="tns:auteur" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="auteur">
-    <xs:sequence>
-      <xs:element name="numero_a" type="xs:long" minOccurs="0"/>
-      <xs:element name="adresse" type="xs:string" minOccurs="0"/>
-      <xs:element name="nom" type="xs:string" minOccurs="0"/>
-      <xs:element name="prenom" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 

@@ -34,15 +34,17 @@ public class SoapAdapter {
 	
 	// Méthodes pour le traitement des auteurs
 	public AddAuteurResponse adapterAddAuteur(AddAuteur request){
-		String nom = request.getArg0();
-		String prenom = request.getArg1();
-		String adresse = request.getArg2();
-		bs.addAuteur(nom, prenom, adresse);
-		return new AddAuteurResponse();
+		String nom = request.getNom();
+		String prenom = request.getPrenom();
+		String adresse = request.getAdresse();
+		Auteur auteur = bs.addAuteur(nom, prenom, adresse);
+		AddAuteurResponse resp = new AddAuteurResponse();
+		resp.setReturn(auteur);
+		return resp;
 	}
 	
 	public GetAuteurResponse adapterGetAuteur(GetAuteur request){
-		Long numero_a = request.getArg0();
+		Long numero_a = request.getNumeroA();
 		Auteur auteur = bs.getAuteur(numero_a);
 		GetAuteurResponse resp = new GetAuteurResponse();
 		resp.setReturn(auteur);
@@ -57,7 +59,7 @@ public class SoapAdapter {
 	}
 	
 	public SearchAuteursResponse adapterSearchAuteurs(SearchAuteurs request){
-		String nom = request.getArg0();
+		String nom = request.getNom();
 		List<Auteur> auteursTrouves = bs.searchAuteurs(nom);
 		SearchAuteursResponse resp = new SearchAuteursResponse();
 		resp.setReturn(auteursTrouves);
@@ -65,32 +67,34 @@ public class SoapAdapter {
 	}
 	
 	public UpdateAuteurResponse adapterUpdateAuteur(UpdateAuteur request){
-		Long numero_a = request.getArg0();
-		String nom = request.getArg1();
-		String prenom = request.getArg2();
-		String adresse = request.getArg3();
+		Long numero_a = request.getNumeroA();
+		String nom = request.getNom();
+		String prenom = request.getPrenom();
+		String adresse = request.getAdresse();
 		bs.updateAuteur(numero_a, nom, prenom, adresse);
 		return new UpdateAuteurResponse();
 	}
 	
 	public DeleteAuteurResponse adapterDeleteAuteur(DeleteAuteur request){
-		Long numero_a = request.getArg0();
+		Long numero_a = request.getNumeroA();
 		bs.deleteAuteur(numero_a);
 		return new DeleteAuteurResponse();
 	}
 	
 	// Méthodes pour le traitement des livres
 	public AddLivreResponse adapterAddLivre(AddLivre request){
-		String titre = request.getArg0();
-		double prix = request.getArg1();
-		String resume = request.getArg2();
-		Long numero_a = request.getArg3();
-		bs.addLivre(titre, prix, resume, numero_a);
-		return new AddLivreResponse();
+		String titre = request.getTitre();
+		double prix = request.getPrix();
+		String resume = request.getResume();
+		Long numero_a = request.getNumeroA();
+		Livre livre = bs.addLivre(titre, prix, resume, numero_a);
+		AddLivreResponse resp = new AddLivreResponse();
+		resp.setReturn(livre);
+		return resp;
 	}
 	
 	public GetLivreResponse adapterGetLivre(GetLivre request){
-		Long numero_l = request.getArg0();
+		Long numero_l = request.getNumeroL();
 		Livre livre = bs.getLivre(numero_l);
 		GetLivreResponse resp = new GetLivreResponse();
 		resp.setReturn(livre);
@@ -105,7 +109,7 @@ public class SoapAdapter {
 	}
 	
 	public SearchLivresResponse adapterSearchLivres(SearchLivres request){
-		String titre = request.getArg0();
+		String titre = request.getTitre();
 		List<Livre> livresTrouves = bs.searchLivres(titre);
 		SearchLivresResponse resp = new SearchLivresResponse();
 		resp.setReturn(livresTrouves);
@@ -113,17 +117,17 @@ public class SoapAdapter {
 	}
 	
 	public UpdateLivreResponse adapterUpdateLivre(UpdateLivre request){
-		Long numero_l = request.getArg0();
-		String titre = request.getArg1();
-		double prix = request.getArg2();
-		String resume = request.getArg3();
-		Long numero_a = request.getArg4();
+		Long numero_l = request.getNumeroL();
+		String titre = request.getTitre();
+		double prix = request.getPrix();
+		String resume = request.getResume();
+		Long numero_a = request.getNumeroA();
 		bs.updateLivre(numero_l, titre, prix, resume, numero_a);
 		return new UpdateLivreResponse();
 	}
 	
 	public DeleteLivreResponse adapterDeleteLivre(DeleteLivre request){
-		Long numero_l = request.getArg0();
+		Long numero_l = request.getNumeroL();
 		bs.deleteLivre(numero_l);
 		return new DeleteLivreResponse();
 	}
