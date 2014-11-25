@@ -12,25 +12,25 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "searchLivres", namespace = "http://webservice.isima.fr/")
 public class SearchLivres {
 
-    @XmlElement(name = "arg0", namespace = "")
-    private String arg0;
+    @XmlElement(name = "titre", namespace = "")
+    private String titre;
 
     /**
      * 
      * @return
      *     returns String
      */
-    public String getArg0() {
-        return this.arg0;
+    public String getTitre() {
+        return this.titre;
     }
 
     /**
      * 
-     * @param arg0
-     *     the value for the arg0 property
+     * @param titre
+     *     the value for the titre property
      */
-    public void setArg0(String arg0) {
-        this.arg0 = arg0;
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
 
 }

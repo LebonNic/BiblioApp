@@ -102,7 +102,7 @@ public class BiblioService {
 	}
 	
 	@WebMethod
-	public List<Livre> searchLivres(String titre){
+	public List<Livre> searchLivres(@WebParam(name="titre") String titre){
 		List<Livre> livresTrouves = ofy().load().type(Livre.class).filter("_titre ==", titre).list();
 		return livresTrouves;
 	}
