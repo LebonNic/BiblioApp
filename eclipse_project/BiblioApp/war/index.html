@@ -1,27 +1,50 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
-<!-- above set at the top of the file will set     -->
-<!-- the browser's rendering engine into           -->
-<!-- "Quirks Mode". Replacing this declaration     -->
-<!-- with a "Standards Mode" doctype is supported, -->
-<!-- but may lead to some differences in layout.   -->
-
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Hello App Engine</title>
-  </head>
+    <head>
+        <title>BiblioApp</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link type="text/css" href="assets/css/metro-bootstrap.min.css" rel="stylesheet"/>
+        <link type="text/css" href="assets/css/metro-bootstrap-responsive.min.css" rel="stylesheet"/>
+        <link type="text/css" href="assets/css/iconFont.min.css" rel="stylesheet"/>
+    </head>
+    <body class="metro">
+        <nav class="navigation-bar dark">
+            <nav class="navigation-bar-content">
+                <a id="brand" class="element brand" href="#">Biblio<strong>App</strong></a>
+                <span class="element-divider"></span>
+                <div class="element input-element">
+                    <form id="search-form">
+                        <div class="input-control text">
+                            <input type="text" id="search-query" placeholder="Title / Author"/>
+                            <button type="submit" class="btn-search"></button>
+                        </div>
+                    </form>
+                </div>
+                <span class="element-divider"></span>
+                <div class="element">
+                    <a class="dropdown-toggle" href="#">Add</a>
+                    <ul class="dropdown-menu" data-role="dropdown">
+                        <li><a id="add-book" href="#">Book</a></li>
+                        <li><a id="add-author" href="#">Author</a></li>
+                    </ul>
+                </div>
+                <span class="element-divider"></span>
+            </nav>
+        </nav>
 
-  <body>
-    <h1>Hello App Engine!</h1>
-	
-    <table>
-      <tr>
-        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
-      </tr>
-      <tr>
-        <td><a href="biblioapp">BiblioApp</a></td>
-      </tr>
-    </table>
-  </body>
+        <div id="content-container" class="container"></div>
+
+        <script type="text/javascript" src="assets/js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.mousewheel.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.soap.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.xml2json.js"></script>
+        <script type="text/javascript" src="assets/js/metro.min.js"></script>
+
+        <script type="text/javascript" src="assets/js/TypeCheck.js"></script>
+        <script type="text/javascript" src="assets/js/Author.js"></script>
+        <script type="text/javascript" src="assets/js/Book.js"></script>
+        <script type="text/javascript" src="assets/js/main.js"></script>
+    </body>
 </html>
