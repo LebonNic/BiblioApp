@@ -13,8 +13,8 @@ import fr.isima.persistence.Auteur;
 import fr.isima.persistence.Livre;
 
 /**
- * La classe BiblioService définit l'interface du service web
- * utilisé pour intéragir à distance avec l'application.
+ * La classe BiblioService dÃ©finit l'interface du service web
+ * utilisÃ© pour interagir Ã  distance avec l'application.
  * 
  * @author Nicolas Prugne
  *
@@ -23,11 +23,11 @@ import fr.isima.persistence.Livre;
 public class BiblioService {
 	
 	/**
-	 * Ajoute un auteur dans la base de données.
+	 * Ajoute un auteur dans la base de donnÃ©es.
 	 * @param nom Nom de l'auteur.
 	 * @param prenom Prenom de l'auteur.
 	 * @param adresse Adresse de l'auteur.
-	 * @return L'auteur nouvellement créé et ajouté à la base.
+	 * @return L'auteur nouvellement crÃ©Ã© et ajoutÃ© Ã  la base.
 	 */
 	@WebMethod
 	public Auteur addAuteur(
@@ -41,9 +41,9 @@ public class BiblioService {
 	}
 	
 	/**
-	 * Récupère un auteur stocké dans la base via son identifiant.
+	 * RÃ©cupÃ¨re un auteur stockÃ© dans la base via son identifiant.
 	 * @param numero_a Identifiant de l'auteur.
-	 * @return L'auteur correspondant à l'identifiant.
+	 * @return L'auteur correspondant Ã  l'identifiant.
 	 */
 	@WebMethod
 	public Auteur getAuteur(@WebParam(name="numero_a") Long numero_a){
@@ -53,9 +53,9 @@ public class BiblioService {
 	}
 	
 	/**
-	 * Récupère tous les auteurs présents dans la base.
-	 * @return Une liste contenant tous les auteurs stockés dans
-	 * la base de données.
+	 * RÃ©cupÃ¨re tous les auteurs prÃ©sents dans la base.
+	 * @return Une liste contenant tous les auteurs stockÃ©s dans
+	 * la base de donnÃ©es.
 	 */
 	@WebMethod
 	public List<Auteur> getAllAuteurs(){
@@ -64,11 +64,11 @@ public class BiblioService {
 	}
 	
 	/**
-	 * Permet de rechercher un auteur grace à son nom dans la base
-	 * de données.
-	 * @param nom Le nom de l'auteur recherché.
-	 * @return Une liste d'auteurs dont le début du nom correspond
-	 * à la chaine passée en paramètre. 
+	 * Permet de rechercher un auteur grace Ã  son nom dans la base
+	 * de donnÃ©es.
+	 * @param nom Le nom de l'auteur recherchÃ©.
+	 * @return Une liste d'auteurs dont le dÃ©but du nom correspond
+	 * Ã  la chaine passÃ©e en paramÃ¨tre. 
 	 */
 	@WebMethod
 	public List<Auteur> searchAuteurs(@WebParam(name="nom") String nom){
@@ -77,9 +77,9 @@ public class BiblioService {
 	}
 	
 	/**
-	 * Met à jour les attributs d'un auteur déjà présent dans la 
+	 * Met Ã  jour les attributs d'un auteur dÃ©jÃ  prÃ©sent dans la 
 	 * base.
-	 * @param numero_a Identifiant de l'auteur à mettre à jour.
+	 * @param numero_a Identifiant de l'auteur Ã  mettre Ã  jour.
 	 * @param nom Nouveau nom de l'auteur.
 	 * @param prenom Nouveau prenom de l'auteur.
 	 * @param adresse Nouvelle adresse de l'auteur.
@@ -100,8 +100,8 @@ public class BiblioService {
 	}
 	
 	/**
-	 * Supprime un auteur à partir de son identifiant.
-	 * @param numero_a Identifiant de l'auteur à supprimer.
+	 * Supprime un auteur Ã  partir de son identifiant.
+	 * @param numero_a Identifiant de l'auteur Ã  supprimer.
 	 */
 	@WebMethod
 	public void deleteAuteur(@WebParam(name="numero_a") Long numero_a){
@@ -109,7 +109,7 @@ public class BiblioService {
 		Auteur auteur = ofy().load().key(cleAuteur).now();
 		Long idAuteur = auteur.getNumero_a();
 		
-		// Suppression des livres associés à l'auteur
+		// Suppression des livres associÃ©s Ã  l'auteur
 		List<Livre> livres = ofy().load().type(Livre.class).filter("_numero_a ==", idAuteur).list();
 		for(Livre l : livres){
 			ofy().delete().entity(l).now();
@@ -119,14 +119,14 @@ public class BiblioService {
 		ofy().delete().entity(auteur).now();
 	}
 	
-	// Méthodes pour les livres
+	// MÃ©thodes pour les livres
 	/**
-	 * Ajoute un livre dans la base de données.
+	 * Ajoute un livre dans la base de donnÃ©es.
 	 * @param titre Titre du livre.
 	 * @param prix Prix du livre.
-	 * @param resume Résumé du livre.
+	 * @param resume RÃ©sumÃ© du livre.
 	 * @param numero_a Identifiant de l'auteur du livre.
-	 * @return Le nouveau livre tout juste créé et persisté dans la
+	 * @return Le nouveau livre tout juste crÃ©Ã© et persistÃ© dans la
 	 * base.
 	 */
 	@WebMethod
@@ -142,9 +142,9 @@ public class BiblioService {
 	}
 	
 	/**
-	 * Récupère un livre dans la base de données via son identifiant.
+	 * RÃ©cupÃ¨re un livre dans la base de donnÃ©es via son identifiant.
 	 * @param numero_l Identifiant du livre.
-	 * @return Le livre correspondant à l'identifiant.
+	 * @return Le livre correspondant Ã  l'identifiant.
 	 */
 	@WebMethod
 	public Livre getLivre(@WebParam(name="numero_l") Long numero_l){
@@ -154,7 +154,7 @@ public class BiblioService {
 	}
 	
 	/**
-	 * Récupère tous livres présents dans la base de données.
+	 * RÃ©cupÃ¨re tous livres prÃ©sents dans la base de donnÃ©es.
 	 * @return Une liste contenant tous les livres de la base.
 	 */
 	@WebMethod
@@ -165,10 +165,10 @@ public class BiblioService {
 	
 	/**
 	 * Recherche tous les livres dont le titre commence par la chaine
-	 * passée en paramètre.
+	 * passÃ©e en paramÃ¨tre.
 	 * @param titre Le titre du 
 	 * @return Une liste de livres dont le titre commence par la chaine
-	 * passée en paramètre.
+	 * passÃ©e en paramÃ¨tre.
 	 */
 	@WebMethod
 	public List<Livre> searchLivres(@WebParam(name="titre") String titre){
@@ -177,11 +177,11 @@ public class BiblioService {
 	}
 	
 	/**
-	 * Met à jour les attributs d'un livre spécifié par son identifiant.
-	 * @param numero_l Identifiant du livre à mettre à jour.
+	 * Met Ã  jour les attributs d'un livre spÃ©cifiÃ© par son identifiant.
+	 * @param numero_l Identifiant du livre Ã  mettre Ã  jour.
 	 * @param titre Nouveau titre du livre.
 	 * @param prix Nouveau prix du livre.
-	 * @param resume Nouveau résumé du livre.
+	 * @param resume Nouveau rÃ©sumÃ© du livre.
 	 * @param numero_a Nouvel identifiant de l'auteur du livre.
 	 */
 	@WebMethod
@@ -203,7 +203,7 @@ public class BiblioService {
 	
 	/**
 	 * Supprime un livre de la base via son identifiant.
-	 * @param numero_l Identifiant du livre à supprimer.
+	 * @param numero_l Identifiant du livre Ã  supprimer.
 	 */
 	@WebMethod
 	public void deleteLivre(@WebParam(name="numero_l") Long numero_l){

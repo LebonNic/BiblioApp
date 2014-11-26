@@ -7,8 +7,8 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 /**
- * La classe Auteur définit le format des entités de type Auteur 
- * persistées dans le Datastore.
+ * La classe Auteur dÃ©finit le format des entitÃ©s de type Auteur 
+ * persistï¿½es dans le Datastore.
  * 
  * @author Nicolas Prugne
  *

@@ -7,8 +7,8 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 /**
- * La classe Livre définit le format des entités de type Livre 
- * persistées dans le Datastore.
+ * La classe Livre dÃ©finit le format des entitÃ©s de type Livre 
+ * persistï¿½es dans le Datastore.
  * 
  * @author Nicolas Prugne
  *
