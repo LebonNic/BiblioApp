@@ -1,28 +1,48 @@
 \chapter{Client de l'application}
+Une fois l'application serveur développée, il nous a fallu choisir le type d'application client à développer. Dans cette partir, nous expliciterons le choix effectué puis nous détaillerons la structure du client et la façon dont celle-ci communique avec le serveur.
 
 
 \section{Choix du client}
-% compatible mobile, multi-plateforme, aucune installation, léger
-% responsive design, développement du web, maintenance plus facile
-% déploiement en même temps que l'application serveur
-% décentralisation de la logique de la page par rapport à jsp
+Pour l'application client, nous désirions que l'application soit légère, portable et compatible avec un maximum de plateformes. Le choix du client web s'est alors montré comme une évidence. En effet, celui-ci ne nécessite aucune installation pour le client, est compatible avec les ordinateurs classiques comme avec les mobiles. Le client web a l'avantage de pouvoir être maintenu plus facilement puisque ses fonctionnalités sont mises à jour pour tous les clients dès qu'il est mis à jour. Le déploiement est également facilité puisqu'il suffira de le déployer sur le cloud Google en même temps que l'application serveur.
 
+Dans le cadre de ce projet, nous avons préférer utiliser un client riche basé sur du HTML5 et du JavaScript. Les interactions avec le serveur sont donc effectuées via des requêtes AJAX. Nous avons préféré cette technique car elle permet de décentraliser la logique de la page ce qui permet d'alléger la charge du serveur et peut donner un plus grand dynamisme à la page. De plus, l'utilisation de cette technique est favorisé par le développement des normes du web et l'abandon de certains navigateurs obsolètes auxquels on préfère désormais des navigateurs avec des mises à jours automatisés. Le développement de ses applications peut donc de plus en plus se baser sur des API JavaScript innovantes.
 
 \section{Structure du client}
-\subsection{Design}
-% utilisation de la bibliothèque metro ui css
-% flat design, nombreux composants possibles
-\subsection{Modèle}
-% classes js
-% requêtes possibles
-\subsection{Fonctionnement}
-% jquery, écrans possibles, fonctionnement des écrans
+Maintenant que le choix du client a été explicité, nous allons analyser plus précisément sa structure. Dans un premier temps, nous aborderons son design. Ensuite, nous verrons le modèle développé en JavaScript pour le stockage et la gestion des entités. Enfin, nous verrons le fonctionnement du client.
 
+\subsection{Design}
+Le design et l'ergonomie occupe une grande part de tout projet. Pour celui-ci, nous nous sommes basés sur un le Framework CSS \textit{Metro UI CSS}\footnote{metroui.org.ua}. Celui offre un \textit{flat \& responsive design} et de nombreux composants avec une syntaxe relativement légère. Il inclut également un script JavaScript permettant l'animation de ses composants se basant sur jQuery et son plugin jQueryUI.
+
+\subsection{Modèle}
+Le client est capable de communiquer avec le web service et donc d'effectuer toutes les opérations du CRUD pour des entités de types Auteur et Livre. Nous avons donc choisi de créer deux classes \texttt{Author} (figure \ref{fig:AuthorClass}) et \texttt{Book} (figure \ref{fig:BookClass}) permettant d'effectuer ces opérations. De plus, ces classes sont capables de donner une visualisation des informations des entités dans l'interface.
+\fig[0.5]{fig:AuthorClass}{AuthorClass}{Classe \texttt{Author}}
+\fig[0.5]{fig:BookClass}{BookClass}{Classe \texttt{Book}}
+Les classes créées sont dépendantes de jQuery. En effet, leur création utilise les fonctionnalités de celui-ci pour pouvoir obtenir une syntaxe claire.
+
+\subsection{Fonctionnement}
+Dans cette section, nous verrons les fonctionnalités des différentes vues de l'application.
+La vue principale contient la barre de navigation (figure \ref{fig:HomePage}). Celle-ci contient un élément avec le nom de l'application qui permet de revenir sur la page d'accueil, une barre de recherche qui permet de rechercher une chaîne de caractère parmi les auteurs et les livres. Enfin, un bouton d'ajout permet d'ajouter un nouveau livre ou un nouvel auteur (figure \ref{fig:AddButton}).
+
+\fig[0.4]{fig:HomePage}{HomePage}{Vue principale}
+\fig[0.4]{fig:AddButton}{AddButton}{Bouton d'ajout}
+
+Lorsque l'on clique sur le bouton d'ajout d'auteur, un nouvel auteur est créé (figure \ref{fig:AddAuthor}). Les propriétés de l'auteur peuvent être édités en cliquant sur les éléments. Ceux-ci sont ensuite transformés en input. La perte de focus de l'élément remet l'élément à sont état d'origine (h1, h2 ou h3) et appelle la méthode mise à jour auprès du web service. La figure \ref{fig:AuthorEdit} montre une vue avec un auteur modifié. L'auteur peut également être supprimé en cliquant sur l'icône de corbeille en haut à droite.
+
+\fig[0.4]{fig:AddAuthor}{AddAuthor}{Ajout d'un auteur}
+\fig[0.4]{fig:AuthorEdit}{AuthorEdit}{Auteur modifié}
+
+L'ajout d'un livre est également possible en cliquant sur le bouton d'ajout de livre (figure \ref{fig:AddBook}). Les propriétés du livre peuvent également être modifiées en cliquant sur les éléments. Ceux-ci sont transformés en input ou textarea. Comme pour l'auteur, les éléments reviennent à leur état d'origine (h1, p et h3) avec la perte de focus et sont ensuite mis à jour auprès du serveur. Pour changer l'auteur du livre, on peut effectuer une rechercher dans la barre de recherche du formulaire. La liste des auteurs correspondant sera ensuite affichée (figure \ref{fig:AuthorSearch}). Un clic sur l'un d'entre eux change l'auteur du livre. Pour changer à nouveau l'auteur, il faut cliquer sur l'icône de crayon pour réafficher la barre de recherche. La figure \ref{fig:BookEdit} montre une vue avec un livre modifié. On peut également
+
+\fig[0.4]{fig:AddBook}{AddBook}{Ajout d'un livre}
+\fig[0.4]{fig:AuthorSearch}{AuthorSearch}{Recherche d'un auteur pour un livre}
+\fig[0.4]{fig:BookEdit}{BookEdit}{Livre modifié}
+
+Enfin, la barre de recherche de la barre de navigation permet d'effectuer la recherche d'auteurs et de livres existants. Si aucun paramètre n'est passé, la recherche renvoie tous les auteurs et livres (figure \ref{fig:SearchAll}). Sinon, le paramètre passé est recherché parmi les auteurs et les livres et les éléments correspondant sont affichés (figure \ref{fig:SearchBook}).
+
+\fig[0.4]{fig:SearchAll}{SearchAll}{Recherche sans paramètre}
+\fig[0.4]{fig:SearchBook}{SearchBook}{Recherche avec paramètre}
 
 \section{Communication avec le serveur}
-\subsection{Requêtes AJAX}
-% points de communication client/serveur
-\subsection{Compatibilité SOAP}
-% utilisation de jquery soap et xml2json
-% légères modifications pour compatibilité
-% examples format json/soap
+Dans cette section, nous verrons plus en détails la façon dont le client communique avec le serveur. Nous effectuons des XHR (XML Http Requests) auprès du web services. Les classes \texttt{Book} et \texttt{Author} possèdent des méthodes permettant d'effectuer ces requêtes. Les web services utilisant un format soap, nous avons utilisé le plugin jQuery soap afin de construire les requêtes à partir d'un JSON. Les requêtes reçues sont ensuite retransformées en JSON à l'aide de la bibliothèque xml2json. 
+
+Les objets JavaScript sont ensuite construits grâce aux JSON renvoyés par les web services répondant aux requêtes \texttt{read()} et \texttt{create()}. Les requêtes \texttt{delete()} et \texttt{update()} n'utilisent pas la réponse à la requête.
