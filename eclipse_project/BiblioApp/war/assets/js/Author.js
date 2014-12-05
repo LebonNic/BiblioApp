@@ -80,7 +80,7 @@ var Author = function (args) {
     };
     function setFirstName(firstName) {
         if (!TypeCheck.isString(firstName)) {
-            throw new TypeError("Book firstName must be a string.");
+            throw new TypeError("Author firstName must be a string.");
         }
         if (_firstName !== undefined) {
             _firstName = firstName;
