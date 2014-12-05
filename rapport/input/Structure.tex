@@ -1,2 +1,57 @@
 \chapter{Structure de la base}
+Cette partie a pour rôle d’expliquer l’architecture de la base de données sur laquelle repose l’application. Ainsi dans un premier temps, le service de stockage utilisé pour conserver les informations générées par l’application sera exposé. Dans un second temps, il sera question d’étudier les différentes options possibles afin de stocker et d’accéder aux données via ce service. Enfin, une dernière partie exposera le modèle de données conçu pour les besoins du projet.
+
+\section{Le Datastore}
+Comme beaucoup d’applications, ce service de gestion de livres nécessite de stocker des données. Ce stockage aurait très bien pu se baser sur un SGBD classique tel que MySQL, ou ORACLE, cependant, c’est une technologie différente qui a été choisie.
+
+En effet, pour ce projet, le stockage des données est effectué grâce à la technologie NoSQL de Google baptisé Datastore. NoSQL ne signifie pas No SQL mais Not Only SQL. Néanmoins, le Datastore n’a rien à voir avec une base de données relationnelle classique, et de ce fait, ne s’utilise pas du tout de la même manière.
+
+Le principe du NoSQL est d’optimiser le stockage et l’accès aux données qu’il emmagasine tout en évitant la lourdeur de certains mécanismes propres aux SGDB classiques comme les jointures par exemple. 
+
+Pour ce faire, le Datastore propose de stocker les données sous forme d’entités associées à des clefs. Une entité est définie par un type et contient un ensemble de propriétés auxquelles sont associées des valeurs. Il est possible de voir les entités comme des objets en POO. Les attributs sont aux objets ce que les propriétés sont aux entités du Datastore (figure \ref{fig:Entite}).
+
+\fig[1.0]{fig:Entite}{Entite}{Exemple d'entité du Datastore}
+
+Une autre analogie qui est souvent faite en NoSQL est celle de la table de hachage. En effet, dans sa globalité, le Datastore  peut être vu comme une table de hachage géante. A la manière de ces structures, il associe une clef aux entités qu’il stocke. Ces clefs permettent ensuite d’accéder aux entités sauvegardées avec une complexité de O(1), exactement comme pour une table de hachage classique. 
+
+La partie suivante, plus technique, explique de manière concrète comment les données sont manipulées par un programme qui utilise le Datastore.
+
+\section{Accès aux données}
+Plusieurs options sont possibles pour interagir avec le Datastore. La première, est d’utiliser l’API Java bas niveau fournit par Google. Cette API permet de bien comprendre comment le Datasore fonctionne, mais elle est assez complexe à utiliser. De plus, le code source qui en résulte est assez répétitif et peut conduire à des problèmes de duplications de code avec tout ce que cela comporte comme inconvénients.
+
+Une autre option qui s’offre aux développeurs est d’utiliser l’implémentation de JDO spécifique au Datastore que fournit Google via le SDK du App Engine. Ce standard, bien connu des développeurs Java, permet d’accélérer grandement la vitesse de développement d’une application et la portabilité du code lorsqu’il s’agit d’interagir avec différents types de bases de données. Cependant, même si Google fournit une implémentation de ce standard son côté trop abstrait et trop généraliste le rend parfois difficile à manipuler.
+
+La dernière option qui s’offre aux développeurs est d’utiliser une API Java spécialement conçue pour la manipulation de données dans le Datastore appelée Objectify. Objectify offre une syntaxe nettement plus claire et plus transparente que JDO, tout en étant plus pratique à utiliser que l’API de bas niveau du Datastore. Un peu à la manière d’un Framework d’ORM, Objectify permet de créer des classes qui vont ensuite pouvoir être persistées dans le store de manière simplifiée, grâce à un jeu d’annotations. 
+
+Pour résumer, Objectify permet d’augmenter grandement la productivité des développeurs qui travaillent avec le Datastore. De plus, le code produit est très lisible, et le temps d’apprentissage pour manipuler l’API est très court. Le seul inconvénient, à l’utilisation d’Objectify, est la portabilité du code, puisque l’API est spécifique au Datastore. 
+
+Concernant le projet de gestion de livres, l’application n’a pas vocation a être portée sur d’autres plate-formes que celle de Google. C’est pourquoi il a été choisi d’utiliser Objectify pour manipuler les données stockées en base.
+
+La partie suivante expose le modèle de données bâti sur cette API pour répondre aux besoins de l’application.
+
+\section{Modélisation et implémentation}
+Comme pour beaucoup d’applications Java EE, il a fallu concevoir une couche métier  afin d’implémenter les concepts associés à l’utilité finale du projet, c’est à dire, gérer le stock de livres d’une librairie.
+
+Pour ce faire, deux classes métiers ont été conçues. Une classe Auteur et une classe Livre. La classe Auteur encapsule les informations associées à un auteur comme son nom, son prénom et son adresse. La classe Livre fait de même avec les informations associées à un livre, telle que son titre, son prix ou encore son résumé (figure \ref{fig:ClassesMetiers}).
+
+\fig[1.0]{fig:ClassesMetiers}{ClassesMetiers}{Les classes métiers}
+
+Une fois les classes métiers implémentées, vient la question de l'interaction avec la base de données. En effet, comment faire correspondre un modèle objet avec les entités que stocke le Datastore ? C’est la qu’Objectify intervient. Grâce à quelques annotations placées dans la déclaration des classes, la bibliothèque va permettre de rendre celles-ci persistantes, un peu comme le ferait une bibliothèque d’ORM (Object-Relational Mapping) avec une base de données classique.
+
+Les futurs objets de type Livre ou Auteur, instanciés par le programme, pourront ensuite facilement être envoyés au Datastore pour être stockés. Cependant, une autre question subsiste. Comment faire pour implémenter le lien entre les classes Livre et Auteur ? Avec le Datastore, c’est au développeur d’implémenter lui même un système de clef étrangère (figure \ref{fig:ClassesMetiersPersistantes}).
+
+\fig[1.0]{fig:ClassesMetiersPersistantes}{ClassesMetiersPersistantes}{Implémentation du lien entre les classes Livre et Auteur}
+
+Dans le cas de cette application, il faut mémoriser le lien entre un livre et son auteur, sachant qu’un livre ne peut être écrit que par un seul auteur et qu’un auteur peut avoir écrit 0 à n livres. Avec un SGBD classique, il faudrait créer une clef étrangère dans la table des livres qui référencerait une clef primaire dans la table des auteurs. Avec le Datastore, le développeur ne peut qu’ajouter un identifiant dans à la classe livre qu’il devra faire lui même correspondre avec celui d’un auteur. Voilà pourquoi la classe livre possède un attribut \verb|Numero_a|.
+
+Enfin une dernière question reste à résoudre. C’est celle de la recherche d’informations dans le Datastore. Effectivement, ce dernier n’est pas prévu pour fonctionner comme un SGBD classique et les requêtes habituelles, écrites avec le langage SQL, ne sont pas présentes ici.
+
+Avec le Datastore, il faut prévoir à l’avance ce que le service va devoir rechercher comme informations et le lui signaler. Pour ce faire, il faut indexer les propriétés des entités sur lesquelles les recherches vont s’effectuer. Dans le cas des objets de la classe Livre, les recherches s’effectueront principalement sur leurs titres, voilà pourquoi l’attribut titre possède l’annotation \verb|@Index| dans le code de la classe Livre. De même que pour les auteurs, les recherches s’effectueront principalement grâce à leurs noms, voilà pourquoi l’attribut nom est lui aussi indexé. 
+
+
+
+
+
+
+
 

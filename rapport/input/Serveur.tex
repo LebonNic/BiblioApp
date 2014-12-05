@@ -1,2 +1,46 @@
 \chapter{Serveur et web services}
+Concevoir la couche métier et la couche d’accès aux données d’une application ne suffit pas à la rendre fonctionnelle. Il faut également trouver un moyen de rendre ces services utilisables. Dans le cadre de ce TP, l’application développée est dite centralisée. C’est à dire qu’elle est destinée à s’exécuter sur un serveur. Ainsi, dans son fonctionnement, elle doit fournir un moyen à d’autres applications, dites clientes, de se connecter et d'interagir avec le serveur. Le but final étant d’avoir accès au service de gestion des livres à distance. 
+
+Cette partie du rapport a donc pour rôle de présenter la mise en oeuvre de ce système. Aussi, dans un premier temps, la manière d'interagir avec le programme sera dévoilée, puis dans un second temps l’implémentation concrète de ces interactions sera dévoilée.
+
+\section{Interface du service web}
+Tout d’abord, il faut parler de la stratégie adopter pour communiquer avec le serveur. Dans le cas d’une architecture semblable à celle de ce TP, une technique très employée pour faire dialoguer des applications hétérogènes est celle des services web.
+
+La mise en place d’un service web permet via un protocole standardisé, SOAP ou autre, de demander à un programme qui tourne sur un serveur d’exécuter du code pour une application cliente. Ce genre d’appels à des méthodes distantes se nomme RPC (Remote Procedure Call).
+
+C’est cette technique qui a été mise en oeuvre pour l’application de ce TP. Le service web disponible côté serveur fournit une interface à des applications clientes pour demander l’exécution de procédures implémentées côtés serveur.
+
+Ainsi le premier travail à faire avec ce type d’architecture est de choisir quelles méthodes vont être appelables par les applications clientes. Dans le cadre d’une application de gestion de livres, ces méthodes vont principalement tournées autour de la création, de la lecture, de la mise à jour et de l’effacement d’entités stockées dans la base de données.
+
+Puis il faut passer à l’implémentation. En Java, un service web se définit avant tout grâce à une classe qui va comporter un ensemble de méthodes. Cet ensemble va permettre de définir l’interface du service, c’est à dire l’ensemble des méthodes appelables par les applications clientes (figure \ref{fig:BiblioService}).
+
+\fig[1.0]{fig:BiblioService}{BiblioService}{Interface du service web}
+
+Les méthodes de la classe \verb|BiblioService| représente l’ensemble des procédures appelables par des applications tierces. Elles réalisent une interface de type CRUD (Create, Read, Update, Delete) pour les objets de type Livre et de type Auteur. C’est cette classe qui va permettre aux applications clientes de travailler avec le serveur dans le but de gérer les livres et les auteurs de la base.
+
+Maintenant que l’interface du service web a été exposée, il faut aborder une partie plus technique et il peut être appelé.
+
+
+\section{Support des RPC}
+Une fois l’interface du web service implémentée, il reste encore quelques étapes avant de le rendre utilisable par des applications clientes. En effet, pour l’instant, l’application ne fournit qu’une classe exposant les méthodes à appeler, mais elle ne dit pas comment faire pour appeler ces procédures.
+
+C’est l’objectif du protocole SOAP. Ce dernier fournit un standard permettant d’encapsuler un appel de fonction dans une enveloppe XML. Le standard décrit par exemple la manière avec laquelle les paramètres doivent être ordonnés, ou comment retourner le résultat d’une procédure aux clients.
+
+Heureusement pour les développeurs Java EE, il existe une API pour mapper les appels aux méthodes d’une classe avec des requêtes SOAP. Il s’agit de JAX-WS. Grâce à cette API, et à un utilitaire fournit dans le JDK, la traduction d’une reqête SOAP en l’appel à une méthode du web service est très aisée.
+
+Pour ce faire, il faut commencer par indiquer quelles méthodes vont être mappées à des requêtes SOAP. Ainsi, il faut placer des annotations devant les méthodes de la classe \verb|BiblioService| pour déclarer concrètement quelles vont être ces méthodes.
+
+Puis, une fois que ces marqueurs ont été placés devant toutes les méthodes à exposer, il faut se servir l’utilitaire \verb|wsgen|. Ce dernier automatise la création de classes appelées artefacts. Elles décrivent en Java les prototypes des méthodes du service web et leurs types de retour. L’API JAX-WS permet ensuite en quelques lignes de transformer une requête SOAP en l’un de ces artefacts. Les artefacts sont ensuite directement manipulables, via du code Java, afin de transmettre les appels SOAP, avec leurs paramètres, aux méthodes du web service.
+
+Bien entendu, avant de transmettre ces requêtes à la classe \verb|BiblioService|, un processus de traitement est nécessaire afin de créer les bons artefacts et de les transmettre aux bonnes méthodes du service web. A l’origine, le serveur Java EE utilisé pour l’application ne sait rien faire d’autre que transmettre les requêtes HTTP qu’il reçoit aux servlets qu’il contient. Il est donc nécessaire d’adapter ce dernier au traitement de requêtes SOAP.
+
+Ainsi, ce mécanisme repose principalement sur deux classes. La première baptisée \verb|SoapHandler| va être chargée de récupérer les requêtes SOAP bruts depuis la servlet et de les transformer en artefact correspondant à la méthode du web service à appeler.
+
+Puis le \verb|SoapHandler| va transmettre cet artefact à un autre composant appelé \verb|SoapAdatper|. C’est ce dernier qui va directement appeler les méthodes de la classe \verb|BiblioService| en leur passant les paramètres contenus dans l’artefact. Puis, une fois l’appel à la procédure terminé, le \verb|SoapAdapter| va lui aussi générer un artefact correspondant à la réponse de la procédure. Il va bien entendu remplir ce dernier avec les résultats retournés par la méthode du service web, et les transmettre à son tour au \verb|SoapHandler|.
+
+La réponse va alors suivre le chemin inverse jusqu’à remonter au niveau de la servlet où elle va être transformer en réponse SOAP, puis renvoyée au client ayant appelé la méthode.
+
+
+ 
+
 
