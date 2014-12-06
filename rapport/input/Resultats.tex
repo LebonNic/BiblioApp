@@ -1,2 +1,7 @@
 \chapter{Résultats et tests}
 
+Différents aspects de l'application ont pu être testé. Toutes les méthodes du CRUD sont fonctionnelles sur les objets livres et auteurs. On peut ainsi ajouter, modifier, récupérer et supprimer ceux-ci.
+
+Ces fonctionnalités sont fonctionnelles mais une amélioration pourrait être apportée à la récupération des données. En effet, les modifications apportées sont traitées de façon asynchrones par le datastore. Si l'objet est lu juste après sa modification, celle-ci ne sera pas forcément directement visible. Différentes solutions seraient possibles pour implémenter cette amélioration. Soit côté serveur, en forçant l'actualisation lors d'un requête de lecture ou en récupérant les objets modifiés depuis un cache commun. Cette solution implique que l'application sur un seul serveur car les opérations de synchronisation entre serveur sont coûteuses en temps et en performance. L'autre solution serait d'implémenter un mécanisme de cache dans l'application cliente en gardant en mémoire les objets déjà récupérés. Cette solution permet uniquement à l'utilisateur de voir ses modifications directement effective, elle ne tiendra pas compte des modifications des autres utilisateurs.
+
+L'application développée aurait également pu utiliser des frameworks tels que AngularJS offrant des niveaux d'abstraction plus importants pour faciliter le développement et la maintenance de celle-ci. 
